@@ -10,7 +10,7 @@ class Customer(models.Model):
     added_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    #date = models.DateTimeField('adding date')
+    #date = models.DateTimeField('adding date')#
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
