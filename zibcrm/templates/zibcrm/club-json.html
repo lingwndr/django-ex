@@ -1,0 +1,44 @@
+<!-- templates/home.html -->
+{% extends 'zibcrm/base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+<div id="columns"></div>
+<!--<input type="hidden" id="myVar" name="variable" value="{{ user_purchase_list }}">-->
+<script>
+    //var table_data = document.getElementById("myVar").value;
+    //console.log(table_data);
+  $(document).ready(function() {
+    var data = [];
+    $.ajax({
+      url:'purchases',
+      dataType: 'json', 
+      success: function(json) { 
+            
+            for (var key in json) {
+                if (json.hasOwnProperty(key)) {
+                    //console.log(key + " -> " + json[key].fields.toString());
+                    data.push(json[key].fields)
+                }
+            } 
+            console.log(data);
+            if (json == ''){
+                $('#columns').html("You're not purchased anything yet!");
+            }
+            else{
+                example2 = $('#columns').columns({
+                  data: data, 
+                }); 
+            }
+            
+      }
+   });
+  });
+</script>
+  <p><a href="{% url 'logout' %}?next=/">logout</a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+{% endif %}
+{% endblock %}
