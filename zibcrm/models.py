@@ -235,7 +235,12 @@ class Goods(models.Model):
     #filedata = models.FileField(null=True, blank=True)
     
     def natural_key(self):
-        return (self.name)
+        return self.get_product_type_display()\
+        +" | metal_type:"+self.get_felez_type_display()\
+        +" | metal_price:"+str(self.felez_price)\
+        +" | stone_type:"+self.get_stone_type_display()\
+        +" | stone_weight:"+str(self.stone_weight)\
+        +" | price:"+str(self.price)+"<br>"
     
     def __str__(self):
         return self.get_product_type_display()\
